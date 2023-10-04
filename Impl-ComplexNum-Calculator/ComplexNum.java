@@ -1,34 +1,30 @@
-public class ComplexNum {
+class ComplexNumber {
     double re;
-	double im;
+    double im;
 
     void build(double re, double im) {
         this.re = re;
-		this.im = im;
+        this.im = im;
     }
 
     boolean equal(ComplexNum num) {
-        if ( this.re == num.re && this.im == num.im ) {
-				return true;
-		}	
-        return false;
+        return (re == num.re) && (im == num.im);
     }
 
     void add(ComplexNum num) {
-        this.re += num.re;
-		this.im += num.im;
+        re += num.re;
+        im += num.im;
     }
 
     String toStringRep() {
-        if (this.im>=0 && this.re>=0) {
-            return (int) this.re + "+" + (int) this.im + "i";
-        }
-        if (this.im>=0 && this.re<=0) {
-            return (int) this.re + "+" + (int) this.im + "i";
-        }
-        if (this.im<=0 || this.re<=0) {
-            return (int) this.re + "" + (int) this.im + "i";
-        }
-        return "Error";
+        return im == 0
+            // Special case: real number.
+            ? re + ""
+            // Stringify real part if present
+            : (re == 0 ? "" : re)
+                // Add + signum if required (if negative, - is added automatically)
+                + (re != 0 && im > 0 ? "+" : "")
+                // Add imaginary part, handle +-1
+                + (im == 1 ? "" : (im == -1 ? "-" : im + "")) + "i";
     }
 }
