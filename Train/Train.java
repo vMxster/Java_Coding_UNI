@@ -32,7 +32,7 @@ class Train {
 		return SecondClassOccupancyRatio;
 	}
 	void deleteAllReservations() {
-		this.nFirstClassReservedSeats = this.nFirstClassSeats;
-		this.nSecondClassReservedSeats = this.nSecondClassSeats;
+		this.nFirstClassReservedSeats = 0;
+		this.nSecondClassReservedSeats = 0;
 	}
 }
