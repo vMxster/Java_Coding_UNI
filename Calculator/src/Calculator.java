@@ -3,16 +3,18 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Calculator implements ActionListener {
+    
+    public static final int NUM_BUTTONS = 10;
+    public static final int NUM_FUNCTIONS = 9;
+    
     JFrame frame;
     JTextField textField;
-    JButton[] numberButtons = new JButton[10];
-    JButton[] fuctionButtons = new JButton[9];
+    JButton[] numberButtons = new JButton[NUM_BUTTONS];
+    JButton[] fuctionButtons = new JButton[NUM_FUNCTIONS];
     JButton addButton, subButton, mulButton, divButton;
     JButton decButton, equButton, delButton, clrButton, negButton;
     JPanel panel;
-
     Font myFont = new Font("Ink Free", Font.BOLD, 30);
-
     double num1 = 0;
     double num2 = 0;
     double result = 0;
@@ -49,13 +51,12 @@ public class Calculator implements ActionListener {
         fuctionButtons[7] = clrButton;
         fuctionButtons[8] = negButton;
 
-        for (int i = 0 ; i<9 ; i++) {
+        for (int i = 0 ; i<NUM_FUNCTIONS ; i++) {
             fuctionButtons[i].addActionListener(this);
             fuctionButtons[i].setFont(myFont);
             fuctionButtons[i].setFocusable(false);
         }
-
-        for (int i = 0 ; i<10 ; i++) {
+        for (int i = 0 ; i<NUM_BUTTONS ; i++) {
             numberButtons[i] = new JButton(String.valueOf(i));
             numberButtons[i].addActionListener(this);
             numberButtons[i].setFont(myFont);
@@ -97,7 +98,7 @@ public class Calculator implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        for(int i = 0 ; i<10 ; i++) {
+        for(int i = 0 ; i<NUM_BUTTONS ; i++) {
             if (e.getSource() == numberButtons[i]) {
                 textField.setText(textField.getText().concat(String.valueOf(i)));
             }
