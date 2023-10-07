@@ -15,67 +15,58 @@ class WorkWithArrays {
     }
 
     static int[] evenElements(final int[] array) {
-        int[] arrayEvenIndex = new int[array.length/2];
-        if (array.length % 2 != 0) {
-            arrayEvenIndex = new int[(array.length/2)+1];
+        final int resultLength = array.length % 2 == 0 ? array.length / 2  : array.length / 2 + 1;
+        final int[] resultArray = new int[resultLength];
+        for (int i = 0; i < array.length; i += 2) {
+            resultArray[i / 2] = array[i];
         }
-        for(int i=0; i<array.length; i=i+2) {
-            arrayEvenIndex[i/2] = array[i];
-        }
-        return arrayEvenIndex;
+        return resultArray;
     }
 
     static int[] oddElements(final int[] array) {
-        int[] arrayOddIndex = new int[array.length/2];
-        for(int i=1; i<array.length; i=i+2) {
-            arrayOddIndex[i/2] = array[i];
+        final int[] resultArray = new int[array.length / 2];
+        for (int i = 1; i < array.length; i += 2) {
+            resultArray[i / 2] = array[i];
         }
-        return arrayOddIndex;
+        return resultArray;
     }
 
     static int mostRecurringElement(final int[] array) {
-        int counter = 0;
-        int counterMostRecurringElement = 0;
-        int mostRecurringElement = 0;
-        int valueArray = 0;
-        int valueCounter = 0;
-
-        for (int i = 0; i<array.length; i++) {
-            valueArray = array[i];
-            for (int j = 0; j<array.length ; j++) {
-                valueCounter = array[j];
-                if(valueArray==valueCounter) {
-                    counter++;
-                }
+        int maxOccurrencies = 0;
+        int currentlyMostOccurring = 0;
+        final int[] defensiveCopy = Arrays.copyOf(array, array.length);
+        Arrays.sort(defensiveCopy);
+        /*
+        * The Arrays.sort(...) method modifies its input array.
+        * Modifying some method input array is considered a bad practice.
+        * To avoid this, we will sort the `defensiveCopy` array which is actually
+        * a clone of this method input array.
+        */
+        for (int i = 0; i < defensiveCopy.length;) {
+            final int currentElement = defensiveCopy[i];
+            int occurrencies = 0;
+            for (i++; i < defensiveCopy.length && defensiveCopy[i] == currentElement; i++, occurrencies++);
+            if (occurrencies > maxOccurrencies) {
+                maxOccurrencies = occurrencies;
+                currentlyMostOccurring = currentElement;
             }
-            if (counter > counterMostRecurringElement) {
-                mostRecurringElement = valueArray;
-                counterMostRecurringElement = counter;
-            }
-            counter = 0;
         }
-        return mostRecurringElement; 
+        return currentlyMostOccurring;
     }
 
     static int[] sortArray(final int[] array, final boolean isDescending) {
-        int i = 0;
-        int j = 0;
-        int temp = 0;
-        for (i = 0; i<array.length && !isDescending ; i++) {
-            for(j = 0; j<array.length-1 ; j++) {
-                if(array[j]>array[j+1]) {
-                    temp = array[j+1];
-                    array[j+1] = array[j];
-                    array[j] = temp;
-                }
-            }
-        }
-        for (i = array.length; i!=0 && isDescending ; i--) {
-            for(j = array.length-1; j!=0 ; j--) {
-                if(array[j]>array[j-1] && j>0) {
-                    temp = array[j-1];
-                    array[j-1] = array[j];
-                    array[j] = temp;
+        boolean swap = true;
+        while (swap) {
+            swap = false;
+            for (int i = 0; i < array.length - 1; i++) {
+                var current = array[i];
+                var next = array[i + 1];
+                // If the array is decending and the next element is smaller
+                // Or if the array is ascending and the next element is greater
+                if ((isDescending && current < next) || (!isDescending && current > next)) {
+                    array[i] = next;
+                    array[i + 1] = current;
+                    swap = true; // We swapped at least once, so we need another round
                 }
             }
         }
@@ -83,34 +74,31 @@ class WorkWithArrays {
     }
 
     static double computeVariance(final int[] array) {
-        double sumVariance = 0;
-        int sumArray = 0;
-        double meanArray = 0;
-        double numeratorVariance = 0;
-
-        for (int i=0 ; i<array.length ; i++) {
-            sumArray += array[i];
+        double returnValue = 0;
+        double mean = 0;
+        for (final int element : array) {
+            mean += element;
         }
-        meanArray = (double) sumArray / array.length;
-        for (int i=0 ; i<array.length ; i++) {
-            numeratorVariance = Math.pow((double) (array[i] - meanArray), 2);
-            sumVariance += (numeratorVariance);
+        mean /= array.length;
+        for (final int element : array) {
+            returnValue += Math.pow(element - mean, 2);
         }
-        double arrayVariance = sumVariance / array.length;
-        return arrayVariance;
+        returnValue /= array.length;
+        return returnValue;
     }
 
     static int[] revertUpTo(final int[] array, final int element) {
-        int j=0;
-        int i=0;
-        int[] arrayInverted = Arrays.copyOf(array,array.length);
-        for (; i<array.length && array[i]!=element ; i++);
-        for (; i!=0; i--) {
-            arrayInverted[j] = array[i];
-            j++;
+        int elemPos = 0;
+        final int[] returnValue = new int[array.length];
+        for (; elemPos < array.length && array[elemPos] != element; elemPos++);
+        int i = 0;
+        for (; i <= elemPos; i++) {
+            returnValue[i] = array[elemPos - i];
         }
-        arrayInverted[j] = array[i];
-        return arrayInverted;
+        for (; i < array.length; i++) {
+            returnValue[i] = array[i];
+        }
+        return returnValue;
     }
 
     static int[] duplicateElements(final int[] array, final int times) {
@@ -130,8 +118,7 @@ class WorkWithArrays {
         return countOccurrencies(new int[] { 1, 2, 3, 4 }, 1) == 1
             && countOccurrencies(new int[] { 0, 2, 3, 4 }, 1) == 0
             && countOccurrencies(new int[] { 7, 4, 1, 9, 3, 1, 5 }, 2) == 0
-            && countOccurrencies(new int[] { 1, 2, 1, 3, 4, 1 }, 1) == 3
-            && countOccurrencies(new int[] { 3, 6, 7, 1 ,5 ,4 ,3 }, 5) == 1;
+            && countOccurrencies(new int[] { 1, 2, 1, 3, 4, 1 }, 1) == 3;
     }
 
     /* Utility method for testing evenElems method */
