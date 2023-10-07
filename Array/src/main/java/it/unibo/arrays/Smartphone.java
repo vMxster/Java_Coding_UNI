@@ -1,4 +1,4 @@
-package it.unibo.arrays;
+package it.unibo.constructors;
 
 class Smartphone {
 
@@ -46,47 +46,37 @@ class Smartphone {
         this(DEF_N_CPU, DEF_RAM_SIZE, sdSize, brand, model, DEF_HAS_GPS, DEF_HAS_3G, DEF_HAS_NFC);
     }
 
-    int getCPUs() {
-        return this.nCPU;
-    }
-
-    int getRam() {
-        return this.ram;
-    }
-
-    int getSdSize() {
-        return this.sdSize;
-    }
-
-    String getBrand() {
-        return this.brand;
-    }
-
-    String getModel() {
-        return this.model;
-    }
-
-    boolean hasGPS() {
-        return this.hasGPS;
-    }
-
-    boolean has3G() {
-        return this.has3G;
-    }
-
-    boolean hasNFC() {
-        return this.hasNFC;
-    }
-
     void printStringRep() {
         System.out.println("Smartphone info:");
-        System.out.println("-n CPU(s): " + this.nCPU);
-        System.out.println("-RAM amount: " + this.ram);
-        System.out.println("-SD size: " + this.sdSize);
-        System.out.println("-brand: " + this.brand);
-        System.out.println("-model: " + this.model);
-        System.out.println("-hasGPS: " + this.hasGPS);
-        System.out.println("-has3G: " + this.has3G);
-        System.out.println("-hasNFC: " + this.hasNFC + "\n");
+        System.out.println("n CPU(s): " + this.nCPU);
+        System.out.println("RAM amount: " + this.ram);
+        System.out.println("SD size: " + this.sdSize);
+        System.out.println("brand: " + this.brand);
+        System.out.println("model: " + this.model);
+        System.out.println("hasGPS: " + this.hasGPS);
+        System.out.println("has3G: " + this.has3G);
+        System.out.println("hasNFC: " + this.hasNFC + "\n");
+    }
+
+    public static void main(final String[] args) {
+        // 1) Creare lo smarthpone HTC One sdSize:1024
+        final Smartphone htcOne = new Smartphone("HTC", "One", 1024);
+
+        // 2) Creare lo smarthpone Samsung Galaxy Note 3 ram:2048 cpu:4
+        // sdSize:8192 gps:true nfc:true 3g:true
+        final Smartphone note3 = new Smartphone(4, 2048, 8192, "Samsung", "Galaxy Note 3", true, true, true);
+
+        // 3) Creare lo smarthpone Apple iPhone 5S nfc:false
+        final Smartphone iPhone5S = new Smartphone("Apple", "iPhone 5S", false);
+
+        // 4) Creare lo smarthpone Google Nexus 4 gps:true 3g:true
+        final Smartphone nexus4 = new Smartphone("Google", "Nexus 4", true, true);
+
+        // 5) Utilizzare il metodo printStringRep per stampare in standard
+        // output le informazioni di ciascun telefono
+        htcOne.printStringRep();
+        note3.printStringRep();
+        iPhone5S.printStringRep();
+        nexus4.printStringRep();
     }
 }
