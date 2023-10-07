@@ -2,30 +2,30 @@ package it.unibo.constructors;
 
 class Train {
 
-    public static final int DEFAULT_N_FC_SEATS = 50;
-    public static final int DEFAULT_N_SC_SEATS = 100;
-    public static final int DEFAULT_TOT_SEATS = 150;
+    static final int DEFAULT_N_FC_SEATS = 50;
+    static final int DEFAULT_N_SC_SEATS = 100;
+    static final int DEFAULT_TOT_SEATS = 150;
 
-    int seats;
-    int firstClassSeats;
-    int secondClassSeats;
+    final int seats;
+    final int firstClassSeats;
+    final int secondClassSeats;
     int firstClassReserved;
     int secondClassReserved;
 
-    public Train (int seats, int firstClassSeats, int secondClassSeats, int firstClassReserved, int secondClassReserved) {
-        this.seats = seats;
-        this.firstClassReserved = firstClassReserved;
-        this.firstClassSeats = firstClassSeats;
-        this.secondClassSeats = secondClassSeats;
-        this.secondClassReserved = secondClassReserved; 
+    Train() {
+        this(DEFAULT_TOT_SEATS, DEFAULT_N_FC_SEATS, DEFAULT_N_SC_SEATS);
     }
 
-    public Train () {
-        this(0,0,0,0,0);
+    Train(final int nFCSeats, final int nSCSeats) {
+        this(nFCSeats + nSCSeats, nFCSeats, nSCSeats);
     }
 
-    public Train (int nFCSeats, int nSCSeats) {
-        this(DEFAULT_TOT_SEATS, nFCSeats, nSCSeats,0,0);
+    Train(final int nTotSeats, final int nFCSeats, final int nSCSeats) {
+        this.seats = nTotSeats;
+        this.firstClassSeats = nFCSeats;
+        this.secondClassSeats = nSCSeats;
+        this.firstClassReserved = 0;
+        this.firstClassReserved = 0;
     }
 
     void deleteAllReservations() {
