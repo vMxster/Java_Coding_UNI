@@ -3,39 +3,33 @@ package it.unibo.arrays;
 class PlayWithSmartphoneArrays {
 
     static int search(Smartphone[] array, String brand) {
-        int counter = 0;
-        for(int i=0; i<array.length ; i++) {
-            if (brand==array[i].brand) {
-                counter++;
+        int returnValue = 0;
+        for (Smartphone phone : array) {
+            if (phone.getBrand().equals(brand)) {
+                returnValue++;
             }
         }
-        return counter;
+        return returnValue;
     }
 
     static int search(Smartphone[] array, boolean hasNFC, boolean hasGPS) {
-        int counter = 0;
-        for(int i=0; i<array.length ; i++) {
-            if (hasNFC==array[i].hasNFC) {
-                if (hasGPS==array[i].hasGPS) {
-                    counter++;
-                }
+        int returnValue = 0;
+        for (Smartphone phone : array) {
+            if (phone.hasNFC() == hasNFC && phone.hasGPS() == hasGPS) {
+                returnValue++;
             }
         }
-        return counter;
+        return returnValue;
     }
 
     static int search(Smartphone[] array, int nCPUs, int sdSize, boolean has3G) {
-        int counter = 0;
-        for(int i=0; i<array.length ; i++) {
-            if (nCPUs==array[i].nCPU) {
-                if (sdSize==array[i].sdSize) {
-                    if (has3G==array[i].has3G) {
-                        counter++;
-                }
-                }
+        int returnValue = 0;
+        for (Smartphone phone : array) {
+            if (phone.getCPUs() == nCPUs && phone.getSdSize() == sdSize && phone.has3G() == has3G) {
+                returnValue++;
             }
         }
-        return counter;
+        return returnValue;
     }
 
     public static void main(String[] args) {
@@ -62,7 +56,7 @@ class PlayWithSmartphoneArrays {
         // controllare la corrispondenza del numero dei telefoni facenti match
         System.out.println("The number of HTC smartphones is: " + search(phones, "HTC"));
         System.out.println("The number of smartphones with NFC & GPS is: " + search(phones, true, true));
-        System.out.println("The number of smartphones with 2 CPU 8192 MB sd and 3g is: "
+        System.out.println("The number of smartphones with 1 CPU 2048 MB sd and 3g is: "
                 + search(phones, 2, 8192, true));
     }
 }
