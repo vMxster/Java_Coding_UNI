@@ -2,44 +2,35 @@ package it.unibo.shapes.impl;
 
 import it.unibo.shapes.api.Polygon;
 
-public class Triangle implements Polygon{
-    
-    private static final int AREA_CONST = 2;
-    private static final int NUM_EDGES = 3;
-    private final double baseEdge;
-    private final double leftEdge;
-    private final double rightEdge;
-    private final double height;
-    private double perimeter;
-    private double area;
+public class Triangle implements Polygon {
 
-    public Triangle (final double baseEdge, final double leftEdge, final double rightEdge, final double height) {
-        this.baseEdge = baseEdge;
-        this.leftEdge = leftEdge;
-        this.rightEdge = rightEdge;
-        this.height = height;
-        this.perimeter = 0;
-        this.area = 0;
+    private static final int N_EDGES = 3;
+    private final double l1;
+    private final double l2;
+    private final double l3;
+
+    public Triangle(final double l1, final double l2, final double l3) {
+        this.l1 = l1;
+        this.l2 = l2;
+        this.l3 = l3;
     }
 
-    public double getArea () {
-        return this.area;
-    } 
-
-    public double getPerimeter () {
-        return this.perimeter;
-    } 
-
-    public void calculateArea () {
-        this.area = (this.baseEdge * this.height) / AREA_CONST;
+    /**
+     * @see https://en.wikipedia.org/wiki/Heron%27s_formula
+     */
+    public double getArea() {
+        final double semiPerimeter = this.getPerimeter() / 2;
+        return Math.sqrt(
+            semiPerimeter * (semiPerimeter - this.l1) * (semiPerimeter - this.l2) * (semiPerimeter - this.l3)
+        );
     }
 
-    public void calculatePerimeter () {
-        this.perimeter =  this.baseEdge + this.leftEdge + this.rightEdge;
+    public double getPerimeter() {
+        return this.l1 + this.l2 + this.l3;
     }
 
-    public int getEdgeCount () {
-        return NUM_EDGES;
+    public int getEdgeCount() {
+        return N_EDGES;
     }
 
 }
