@@ -2,38 +2,23 @@ package it.unibo.shapes.impl;
 
 import it.unibo.shapes.api.Polygon;
 
-public class Square implements Polygon{
-    
-    private static final int PERIMETER_CONST = 4;
-    private static final int NUM_EDGES = 3;
-    private final double edge;
-    private double perimeter;
-    private double area;
+public class Square implements Polygon {
+    private static final int N_EDGES = 4;
+    private final double edgeLength;
 
-    public Square (final double edge) {
-        this.edge = edge;
-        this.perimeter = 0;
-        this.area = 0;
+    public Square(final double edgeLength) {
+        this.edgeLength = edgeLength;
     }
 
-    public double getArea () {
-        return this.area;
-    } 
-
-    public double getPerimeter () {
-        return this.perimeter;
-    } 
-
-    public void calculateArea () {
-        this.area = this.edge * this.edge;
+    public double getArea() {
+        return this.edgeLength * this.edgeLength;
     }
 
-    public void calculatePerimeter () {
-        this.perimeter =  PERIMETER_CONST * this.edge;
+    public double getPerimeter() {
+        return this.edgeLength * N_EDGES;
     }
 
-    public int getEdgeCount () {
-        return NUM_EDGES;
+    public int getEdgeCount() {
+        return Square.N_EDGES;
     }
-    
 }
