@@ -2,23 +2,32 @@ package it.unibo.shapes.impl;
 
 import it.unibo.shapes.api.Polygon;
 
-public class Square implements Polygon {
-    private static final int N_EDGES = 4;
-    private final double edgeLength;
+public class Triangle implements Polygon {
 
-    public Square(final double edgeLength) {
-        this.edgeLength = edgeLength;
+    private static final int N_EDGES = 3;
+    private final double l1;
+    private final double l2;
+    private final double l3;
+
+    public Triangle(final double l1, final double l2, final double l3) {
+        this.l1 = l1;
+        this.l2 = l2;
+        this.l3 = l3;
     }
 
     public double getArea() {
-        return this.edgeLength * this.edgeLength;
+        final double semiPerimeter = this.getPerimeter() / 2;
+        return Math.sqrt(
+            semiPerimeter * (semiPerimeter - this.l1) * (semiPerimeter - this.l2) * (semiPerimeter - this.l3)
+        );
     }
 
     public double getPerimeter() {
-        return this.edgeLength * N_EDGES;
+        return this.l1 + this.l2 + this.l3;
     }
 
     public int getEdgeCount() {
-        return Square.N_EDGES;
+        return N_EDGES;
     }
+
 }
