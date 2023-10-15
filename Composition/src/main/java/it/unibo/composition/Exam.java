@@ -8,7 +8,7 @@ public class Exam {
     private final int maxStudents;
     private int registeredStudentsCount;
     private final String courseName;
-    private Student[] students; // Expanding array!
+    private Student[] students;
     private final Professor professor;
     private final ExamRoom room;
 
