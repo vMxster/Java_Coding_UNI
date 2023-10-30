@@ -1,7 +1,7 @@
-package it.unibo.collections.design.impl;
+package it.unibo.collections.design;
+
 import it.unibo.collections.design.api.Product;
 import it.unibo.collections.design.api.Warehouse;
-
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
