@@ -1,34 +1,68 @@
-package it.unibo.collections.design;
+package it.unibo.collections.design.impl;
 
 import it.unibo.collections.design.api.Product;
 
+/**
+ * Product implementation.
+ * 
+ */
 public class ProductImpl implements Product {
 
     private final String name;
-    private double quantity;
+    private final double quantity;
 
-    public ProductImpl(String name, double quantity) {
-        this.name = name;
-        this.quantity = quantity;
+    /**
+     * @param n
+     *            the product name
+     * @param q
+     *            the product quantity
+     */
+    public ProductImpl(final String n, final double q) {
+        super();
+        this.name = n;
+        this.quantity = q;
     }
 
-    public String getName() {
-        return this.name;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getName() {
+        return name;
     }
 
-    public double getQuantity() {
-        return this.quantity;
-    }
-    
-    public boolean equals(ProductImpl product) {
-        return this.name == product.name;
-    }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final double getQuantity() {
+        return quantity;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final int hashCode() {
+        return name.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final boolean equals(final Object obj) {
+        return obj == this
+            || obj instanceof ProductImpl p
+            && p.getClass().equals(this.getClass()) // Breaks the symmetry otherwise
+            && p.name.equals(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString() {
-        return this.name;
+        return "Product[name=" + name + ", quantity=" + quantity + "]";
     }
 }
