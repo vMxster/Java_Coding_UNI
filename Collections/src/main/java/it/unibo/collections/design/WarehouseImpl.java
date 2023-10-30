@@ -1,71 +1,73 @@
-package it.unibo.collections.design;
+package it.unibo.collections.design.impl;
+import it.unibo.collections.design.api.Product;
+import it.unibo.collections.design.api.Warehouse;
 
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Set;
-import it.unibo.collections.design.api.*;
 
+/**
+ * Implementation of a warehouse.
+ *
+ */
 public class WarehouseImpl implements Warehouse {
 
-    private final Set<Product> products;
+    private final Set<Product> set = newSet();
 
-    public WarehouseImpl () {
-        this.products = new HashSet<Product>();
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void addProduct(final Product p) {
+        this.set.add(p);
     }
 
-    public void addProduct(Product p) {
-        products.add(p);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Set<String> allNames() {
-        Set<String> productNames = new HashSet<String>();
-        for (final Product i : products) {
-            productNames.add(i.toString());
+        final Set<String> s = newSet();
+        for (final Product p : this.set) {
+            s.add(p.getName());
         }
-        return productNames;
+        return s;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Set<Product> allProducts() {
-        return new HashSet<>(Set.copyOf(this.products));
+        return newSetFrom(this.set);
     }
 
-    public boolean containsProduct(Product p) {
-        for (final Product i : products) {
-            if (i.equals(p)) {
-                return true;
-            }
-        }
-        return false;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final boolean containsProduct(final Product p) {
+        return set.contains(p);
     }
 
-    public double getQuantity(String name) {
-        for (final Product i : products) {
-            if (i.equals(name)) {
-                return i.getQuantity();
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final double getQuantity(final String name) {
+        for (final var p : this.set) {
+            if (p.getName().equals(name)) {
+                return p.getQuantity();
             }
         }
         return 0;
     }
 
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((products == null) ? 0 : products.hashCode());
-        return result;
+    private static <E> Set<E> newSet() {
+        return new LinkedHashSet<>();
     }
 
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        WarehouseImpl other = (WarehouseImpl) obj;
-        if (products == null) {
-            if (other.products != null)
-                return false;
-        } else if (!products.equals(other.products))
-            return false;
-        return true;
+    private static <E> Set<E> newSetFrom(final Collection<E> origin) {
+        return new LinkedHashSet<>(origin);
     }
 }
